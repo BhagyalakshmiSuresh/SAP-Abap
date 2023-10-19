@@ -1,0 +1,33 @@
+*&---------------------------------------------------------------------*
+*& Report ZBHAGYA_FIRSTPROGRAM
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZBHAGYA_FIRSTPROGRAM.
+DATA A TYPE C LENGTH 10.
+A = 'Bhagya'.
+WRITE :/'char:'.WRITE A.
+DATA B TYPE N.
+B = '5'.
+WRITE :/'Number:'.WRITE B.
+DATA C TYPE D.
+C ='02/10/1998'.
+WRITE:/'Date:'.WRITE C.
+DATA Time TYPE T.
+Time = '12:00'.
+WRITE :/'Time:'.WRITE Time.
+DATA Hexa TYPE X.
+Hexa ='5A'.
+WRITE :/'Hexa:'.WRITE Hexa.
+DATA Integer TYPE I.
+Integer = '25'.
+WRITE :/'Integer:'.WRITE Integer.
+Data Float TYPE F.
+Float ='12.5'.
+WRITE :/'Float:'.WRITE Float.
+DATA Packed TYPE P LENGTH 5.
+Packed = '10.35'.
+write :/'Packed:'.WRITE Packed.
+DATA abc TYPE ZTY_GLABAL.
+abc ='Bhagyalakshmi Suresh'.
+WRITE :/'global:'.WRITE abc.

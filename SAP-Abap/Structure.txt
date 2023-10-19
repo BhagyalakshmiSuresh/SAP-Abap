@@ -1,0 +1,62 @@
+*&---------------------------------------------------------------------*
+*& Report ZBHAGYA_STRUCTURE
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZBHAGYA_STRUCTURE.
+*DATA v_matnr TYPE makt-matnr.
+*DATA:BEGIN OF st_makt,
+*  matnr Type makt-matnr,
+*  spras TYPE makt-spras,
+*  maktx TYPE makt-maktx,
+* END OF st_makt.
+*
+* v_matnr = '23'.
+* WRITE v_matnr.
+*
+* v_matnr = '33'.
+* WRITE v_matnr.
+*
+* st_makt-matnr = '23'.
+* WRITE st_makt-matnr.
+
+
+*for displaying Employee and department table
+
+TYPES :BEGIN OF ty_makt,
+  EMP_ID TYPE ZBHAGYA_TABLE-EMP_ID,
+  NAME TYPE ZBHAGYA_TABLE-NAME,
+  SALARY TYPE ZBHAGYA_TABLE-SALARY,
+  DEP_ID TYPE ZBHAGYA_TABLE-DEP_ID,
+END OF ty_makt.
+
+
+
+DATA ST_MAKT TYPE ty_makt.
+PARAMETERS P_EMPID TYPE ZBHAGYA_TABLE-EMP_ID.
+PARAMETERS P_DEPPID TYPE ZBHAGYA_TABLE-DEP_ID.
+
+
+ SELECT SINGLE EMP_ID NAME SALARY DEP_ID FROM ZBHAGYA_TABLE INTO ST_MAKT WHERE EMP_ID EQ P_EMPID.
+
+   WRITE:ST_MAKT-EMP_ID,
+         ST_MAKT-NAME,
+         ST_MAKT-SALARY,
+         ST_MAKT-DEP_ID.
+
+ SELECT EMP_ID NAME SALARY DEP_ID FROM ZBHAGYA_TABLE INTO ST_MAKT WHERE DEP_ID EQ P_DEPPID.
+   WRITE:/ ST_MAKT-EMP_ID,
+         ST_MAKT-NAME,
+         ST_MAKT-SALARY,
+         ST_MAKT-DEP_ID.
+   ENDSELECT.
+
+*    joining 2 tables
+
+   DATA v_desc TYPE ZBHAGYA_Depart-Description.
+   SELECT SINGLE Description FROM ZBHAGYA_Depart INTO v_desc WHERE dep_id EQ st_makt-dep_id.
+      WRITE:ST_MAKT-EMP_ID,
+         ST_MAKT-NAME,
+         ST_MAKT-SALARY,
+         ST_MAKT-DEP_ID,
+         v_desc.

@@ -1,0 +1,27 @@
+*&---------------------------------------------------------------------*
+*& Report ZBHAGYA_INTREAST
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZBHAGYA_INTREAST.
+PARAMETERS:p_amount TYPE p DECIMALS 2,
+           p_profit TYPE p DECIMALS 2 ,
+           p_day TYPE i ,
+           p_SD AS CHECKBOX.
+DATA :profit TYPE p DECIMALS 2,
+      final_am TYPE p DECIMALS 2.
+
+if p_sd EQ 'X'.
+  profit = p_amount *  p_profit / 100  *  p_day .
+      final_am = p_amount + profit.
+else.
+  final_am = p_amount.
+  Do p_day TIMES.
+    profit = final_am * p_profit / 100.
+    final_am = final_am + profit.
+    ENDDO.
+    ENDIF.
+
+WRITE : 'Initial Amount:',p_amount,
+         /'Total Days:',p_day,
+        /'Total Amount:',final_am.

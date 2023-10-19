@@ -1,0 +1,32 @@
+*&---------------------------------------------------------------------*
+*& Report ZBHAGYA_PLANTS
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZBHAGYA_PLANTS.
+TYPES :BEGIN OF ty_plant,
+    matnr TYPE marc-matnr,
+    werks TYPE marc-werks,
+END OF ty_plant.
+
+DATA v_plant TYPE ty_plant.
+DATA v_name TYPE t001w-name1.
+PARAMETERS p_matnr TYPE marc-matnr.
+
+WRITE : /'Material Number',
+    40 'plant Number',
+    80 'plant Name'.
+
+select  matnr werks FROM marc INTO v_plant WHERE matnr EQ p_matnr.
+  SELECT  single name1 FROM t001w INTO v_name WHERE werks EQ v_plant-werks.
+  WRITE: / v_plant-matnr,
+       40  v_plant-werks,
+         80 v_name.
+  ENDSELECT.
+
+*  SELECT  single name1 FROM t001w INTO v_name WHERE werks EQ v_plant-werks.
+*     WRITE: / v_plant-matnr,
+*        v_plant-werks,
+*        v_name.
+*
+*

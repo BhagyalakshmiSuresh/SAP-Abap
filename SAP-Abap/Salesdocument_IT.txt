@@ -1,0 +1,56 @@
+*&---------------------------------------------------------------------*
+*& Report ZBHAGYA_SALESDOCUMENT_IT
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZBHAGYA_SALESDOCUMENT_IT.
+
+TYPES :BEGIN OF ty_vbak,
+         vbeln TYPE vbak-vbeln,
+         audat TYPE vbak-audat,
+         netwr TYPE vbak-netwr,
+         kunnr TYPE vbak-kunnr,
+ END OF ty_vbak.
+
+TYPES :BEGIN OF ty_vbap,
+         posnr  TYPE vbap-posnr,
+         matnr  TYPE vbap-matnr,
+         arktx  TYPE vbap-arktx,
+         kwmeng TYPE vbap-kwmeng,
+         zieme  TYPE vbap-zieme,
+         netwr  TYPE vbap-netwr,
+END OF ty_vbap.
+
+DATA: it_vbak TYPE table of vbak,
+      it_vbap TYPE TABLE OF vbap,
+      wa_vbak LIKE LINE OF it_vbak,
+      wa_vbap LIKE LINE OF it_vbap,
+      v_name1 TYPE kna1-name1,
+      v_msehl TYPE t006a-msehl.
+
+PARAMETERS : p_dnum TYPE vbak-vbeln.
+
+SELECT SINGLE vbeln audat netwr kunnr FROM vbak INTO wa_vbak WHERE vbeln EQ p_dnum.
+  SELECT SINGLE name1 FROM kna1 INTO v_name1 WHERE kunnr EQ wa_vbak-kunnr.
+  WRITE :  / 'Document Number:', wa_vbak-vbeln,
+           / 'Document Date:', wa_vbak-audat,
+           / 'Net Value:', wa_vbak-netwr,
+          / 'Sold To Party:', v_name1.
+
+
+   WRITE : / 'Item',
+          20 'Material',
+          35 'Item Description',
+          60 'order qty',
+          80 'UOM',
+          100 'Netvalue'.
+
+SELECT  posnr matnr arktx kwmeng zieme netwr FROM vbap INTO  TABLE it_vbap WHERE vbeln EQ p_dnum.
+ SELECT SINGLE mseht FROM t006a INTO v_msehl WHERE msehi EQ wa_vbap-zieme.
+  WRITE:/ wa_vbap-posnr,
+     20 wa_vbap-matnr,
+     35  wa_vbap-arktx,
+     50 wa_vbap-kwmeng,
+     80 v_msehl,
+     90 wa_vbap-netwr.
+ENDSELECT.

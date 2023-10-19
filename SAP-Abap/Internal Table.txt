@@ -1,0 +1,42 @@
+*&---------------------------------------------------------------------*
+*& Report ZBHAGYA_ITTABLE
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZBHAGYA_ITTABLE.
+TYPES:BEGIN OF ty_makt,
+  matnr TYPE makt-matnr,
+  spras TYPE makt-spras,
+  maktx TYPE makt-maktx,
+ END OF ty_makt.
+
+ DATA:it_makt TYPE TABLE of makt,
+       wa_makt LIKE LINE OF it_makt.
+
+ wa_makt-matnr ='100'.
+ wa_makt-spras ='E'.
+ wa_makt-maktx ='Pen'.
+ APPEND wa_makt to it_makt.
+
+ wa_makt-matnr = '200'.
+ wa_makt-spras = 'E'.
+ wa_makt-maktx = 'Pencil'.
+ APPEND wa_makt to it_makt.
+
+ wa_makt-matnr = '200'.
+ wa_makt-spras = 'E'.
+ wa_makt-maktx ='Book'.
+ APPEND wa_makt to it_makt.
+
+ wa_makt-matnr = '300'.
+ wa_makt-spras = 'E'.
+ wa_makt-maktx = 'Scale'.
+ APPEND wa_makt to it_makt.
+
+ clear wa_makt.
+
+ READ TABLE it_makt INTO wa_makt index 3.
+
+ LOOP AT it_makt INTO wa_makt WHERE matnr EQ '200'.
+   WRITE : / wa_makt.
+   ENDLOOP.
